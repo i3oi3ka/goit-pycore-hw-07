@@ -6,6 +6,14 @@ import re
 from datetime import datetime
 
 
+class PhoneNumberValueError(Exception):
+    pass
+
+
+class BirthdayValueError(Exception):
+    pass
+
+
 class Field:
     """
     Base class for storing field values of a record.
@@ -59,7 +67,7 @@ class Phone(Field):
             ValueError: If the phone number does not match the format (10 digits).
         """
         if not re.fullmatch(r"\d{10}", value):
-            raise ValueError("Phone number must be 10 digits")
+            raise PhoneNumberValueError("Phone number must be 10 digits")
         super().__init__(value)
 
 
@@ -79,12 +87,12 @@ class Birthday(Field):
             ValueError: If the birthday does not match the required format.
         """
         if not re.fullmatch(r"\d{2}\.\d{2}\.\d{4}", value):
-            raise ValueError("Date must be in format: DD.MM.YYYY")
+            raise BirthdayValueError("Date must be in format: DD.MM.YYYY")
         try:
             birthday = self.convert_str_to_date(value)
             super().__init__(birthday)
         except ValueError as exc:
-            raise ValueError("Invalid date format. Use DD.MM.YYYY") from exc
+            raise BirthdayValueError("Invalid date format. Use DD.MM.YYYY") from exc
 
     @staticmethod
     def convert_str_to_date(date: str) -> datetime.date:

@@ -75,5 +75,4 @@ class AddressBook(UserDict):
                             ),
                         }
                     )
-
         return users_upcoming_birthday

@@ -3,7 +3,7 @@ class Record
 """
 
 import re
-from task_1.fields import Name, Birthday, Phone
+from task_1.fields import Name, Birthday, Phone, PhoneNumberValueError
 
 
 class Record:
@@ -67,8 +67,10 @@ class Record:
         phone_to_edit = self.find_phone(old_number)
         if phone_to_edit:
             if not re.fullmatch(r"\d{10}", new_number):
-                raise ValueError("Phone number must be 10 digits")
+                raise PhoneNumberValueError("Phone number must be 10 digits")
             phone_to_edit.value = new_number
+        else:
+            raise PhoneNumberValueError("Phone number not found")
 
     def find_phone(self, phone_number: str) -> Phone:
         """
@@ -94,4 +96,4 @@ class Record:
         """
         phone_list = "; ".join(p.value for p in self.phones)
         birthday_str = f", {self.birthday}" if self.birthday else ""
-        return f"Contact name: {self.name.value}, phones: {phone_list}{birthday_str}"
+        return f"Contact name: {self.name.value:<10}| phones: {phone_list}{birthday_str}"

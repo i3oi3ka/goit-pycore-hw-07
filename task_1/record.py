@@ -1,5 +1,9 @@
+"""
+class Record
+"""
+
 import re
-from fields import Name, Birthday, Phone
+from task_1.fields import Name, Birthday, Phone
 
 
 class Record:

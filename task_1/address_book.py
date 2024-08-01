@@ -3,7 +3,7 @@ AddressBook
 """
 from datetime import datetime, timedelta
 from collections import UserDict
-from record import Record
+from task_1.record import Record
 
 
 class AddressBook(UserDict):
